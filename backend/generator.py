@@ -45,10 +45,10 @@ def to_svg_str(qr: QrCode, border: int = 0, logo_size: int = 8, color_scheme="ce
         raise ValueError("Logo size must be non-negative")
 
     # Load logo as SVG
-    cevi_logo = svgutils.compose.SVG('cevi_logo.svg')
+    cevi_logo = svgutils.compose.SVG('20180216_LWZO_Logo.svg')
 
     # Original svg logo is of size 500x500 pixels
-    cevi_logo.scale(0.002 * logo_size, 0.002 * logo_size)
+    cevi_logo.scale(0.002645 * logo_size, 0.002645 * logo_size)
     cevi_logo.moveto(border + qr.get_size() / 2.0 - logo_size / 2.0, border + qr.get_size() / 2.0 - logo_size / 2.0)
     cevi_logo.tostr()
 
@@ -79,23 +79,23 @@ def to_svg_str(qr: QrCode, border: int = 0, logo_size: int = 8, color_scheme="ce
 
     if color_scheme == 'black':
         cevi_logo_string = cevi_logo_string \
-            .replace('fill:#E5352C', 'fill:#000000') \
-            .replace('fill:#97BF0D;', 'fill:#000000')
+            .replace('fill:#00adef', 'fill:#000000') \
+            .replace('fill:#231f20;', 'fill:#000000')
 
     if color_scheme == 'white':
         cevi_logo_string = cevi_logo_string \
-            .replace('fill:#E5352C', 'fill:#ffffff') \
-            .replace('fill:#97BF0D;', 'fill:#ffffff')
+            .replace('fill:#00adef', 'fill:#ffffff') \
+            .replace('fill:#231f20;', 'fill:#ffffff')
 
     return f"""<?xml version="1.0" encoding="UTF-8"?>
     <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
     <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 {qr.get_size() + border * 2} {qr.get_size() + border * 2}" stroke="none">
         
         <path d="{" ".join(qr_parts)}" fill="{
-            '#97bf0d' if color_scheme == 'cevi' else ('#ffffff' if color_scheme == 'white' else '#000000')
+            '#000' if color_scheme == 'cevi' else ('#ffffff' if color_scheme == 'white' else '#000000')
         }"/>
         <path d="{" ".join(qr_corners)}" fill="{
-            '#e5352c' if color_scheme == 'cevi' else ('#ffffff' if color_scheme == 'white' else '#000000')
+            '#009fe3' if color_scheme == 'cevi' else ('#ffffff' if color_scheme == 'white' else '#000000')
         }"/>
 
         { cevi_logo_string }
